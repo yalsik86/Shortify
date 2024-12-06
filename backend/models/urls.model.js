@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-import sequelize from '../config/db.js';
+import { sequelize } from '../config/connectDB.js';
 
 const Url = sequelize.define('Url', {
     id: {
@@ -11,9 +11,6 @@ const Url = sequelize.define('Url', {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
-        validate: {
-            isUrl: true, 
-        },
     },
     longUrl: {
         type: DataTypes.TEXT,

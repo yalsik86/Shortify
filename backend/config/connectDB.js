@@ -13,6 +13,9 @@ const connectDB = async () => {
         await sequelize.authenticate();
         console.log('Database connected');
         console.log(`DB Host: ${sequelize.getDialect()} at: \n${process.env.DATABASE_URL}`);
+
+        await sequelize.sync({ alter: true });
+        console.log('All models synchronized successfully.');
     } catch (error) {
         console.error('Database connection failed:', error.message);
         process.exit(1);
