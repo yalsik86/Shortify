@@ -1,14 +1,13 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState } from 'react';
 import './App.css'
+import Home from './pages/HomePage.jsx';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
       <div>Url Shortener Frontend</div>
+      <Home></Home>
     </>
   )
 }
