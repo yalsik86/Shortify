@@ -3,8 +3,11 @@ import Url from '../models/urls.model.js';
 import { asyncHandler } from '../utilities/asyncHandler.js';
 import { ApiError } from '../utilities/ApiError.js';
 import { ApiResponse } from '../utilities/ApiResponse.js';
+import { redisCheck, redisSetex } from '../utilities/redisUtils.js';
 import dotenv from 'dotenv';
 dotenv.config();
+
+const BASE_URL = `http://localhost:${process.env.PORT || 5000}/api/v1/url/resolve`;
 
 export const shortenURL = asyncHandler(async (req, res) => {
     const { longUrl } = req.body;
@@ -19,10 +22,10 @@ export const shortenURL = asyncHandler(async (req, res) => {
             new ApiResponse(
                 409,
                 {
-                    shortUrl: `http://localhost:${process.env.PORT || 5000}/api/v1/url/resolve/${existingUrl.shortUrl}`,
+                    shortUrl: `${BASE_URL}/${existingUrl.shortUrl}`,
                     longUrl: longUrl,
                 },
-                "URL recently shortened"
+                "URL already shortened"
             )
         );
     }
@@ -37,7 +40,7 @@ export const shortenURL = asyncHandler(async (req, res) => {
         new ApiResponse(
             200,
             {
-                shortUrl: `http://localhost:${process.env.PORT || 5000}/api/v1/url/resolve/${shortUrl}`,
+                shortUrl: `${BASE_URL}/${shortUrl}`,
                 longUrl: longUrl,
             },
             "URL shortened successfully"
