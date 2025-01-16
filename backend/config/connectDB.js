@@ -11,11 +11,11 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
 const connectDB = async () => {
     try {
         await sequelize.authenticate();
-        console.log('Database connected');
-        console.log(`DB Host: ${sequelize.getDialect()} at: \n${process.env.DATABASE_URL}`);
+        console.log('Postgres connected');
+        console.log(`DB Host: "${sequelize.getDialect()}" at: \n${process.env.DATABASE_URL}`);
 
         await sequelize.sync({ alter: true });
-        console.log('All models synchronized successfully.');
+        console.log('All models synchronized successfully.\n');
     } catch (error) {
         console.error('Database connection failed:', error.message);
         process.exit(1);

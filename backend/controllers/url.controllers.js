@@ -3,6 +3,7 @@ import Url from '../models/urls.model.js';
 import { asyncHandler } from '../utilities/asyncHandler.js';
 import { ApiError } from '../utilities/ApiError.js';
 import { ApiResponse } from '../utilities/ApiResponse.js';
+import { redisClient } from '../config/redisClient.js';
 import { redisCheck, redisSetex } from '../utilities/redisUtils.js';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -51,6 +52,13 @@ export const shortenURL = asyncHandler(async (req, res) => {
 export const resolveURL = asyncHandler(async (req, res) => {
     const { shortUrl } = req.params;
 
+    // Check cache
+    const cachedUrl = await redisClient.get(shortUrl);
+    if (cachedUrl) {
+        console.log("Fetched from cache");
+        return res.redirect(cachedUrl);
+    }
+    // Cache miss
     const url = await Url.findOne({ where: { shortUrl } });
     if (!url) {
         throw new ApiError(404, "Shortened URL not found");
@@ -58,6 +66,8 @@ export const resolveURL = asyncHandler(async (req, res) => {
 
     url.clicks += 1;
     await url.save();
+    // Cache the result
+    await redisClient.setEx(shortUrl, 3600, url.longUrl);
 
     return res.redirect(url.longUrl);
 });
