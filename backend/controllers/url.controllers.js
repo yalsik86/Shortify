@@ -4,7 +4,6 @@ import { asyncHandler } from '../utilities/asyncHandler.js';
 import { ApiError } from '../utilities/ApiError.js';
 import { ApiResponse } from '../utilities/ApiResponse.js';
 import { redisClient } from '../config/redisClient.js';
-import { redisCheck, redisSetex } from '../utilities/redisUtils.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -56,6 +55,16 @@ export const resolveURL = asyncHandler(async (req, res) => {
     const cachedUrl = await redisClient.get(shortUrl);
     if (cachedUrl) {
         console.log("Fetched from cache");
+
+        // Asynchronous click count update
+        process.nextTick(async () => {
+            try {
+                await Url.increment("clicks", { where: { shortUrl } });
+            } catch (err) {
+                console.error("Failed to update click count:", err.message);
+            }
+        });
+        
         return res.redirect(cachedUrl);
     }
     // Cache miss
