@@ -1,1 +1,1 @@
-## Expiration time for Postgres
+## Expiration time for MongoDB
