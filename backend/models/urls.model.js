@@ -1,30 +1,36 @@
-import { DataTypes } from 'sequelize';
-import { sequelize } from '../config/connectDB.js';
+import mongoose from 'mongoose';
 
-const Url = sequelize.define('Url', {
-    id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true,
-    },
+const urlSchema = new mongoose.Schema(
+  {
     shortUrl: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
+      type: String,
+      required: true,
+      unique: true,
     },
     longUrl: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-        validate: {
-            isUrl: true,
+      type: String,
+      required: true,
+      validate: {
+        validator: function (value) {
+          try {
+            new URL(value);
+            return true;
+          } catch {
+            return false;
+          }
         },
+        message: 'Invalid URL format',
+      },
     },
     clicks: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0, 
+      type: Number,
+      default: 0,
     },
-}, {
-    timestamps: true,
-});
+  },
+  {
+    timestamps: true, // automatically adds createdAt and updatedAt
+  }
+);
 
+const Url = mongoose.model('Url', urlSchema);
 export default Url;

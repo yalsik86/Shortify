@@ -16,7 +16,7 @@ export const shortenURL = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Enter URL before proceeding");
     }
 
-    const existingUrl = await Url.findOne({ where: { longUrl } });
+    const existingUrl = await Url.findOne({ longUrl });
     if (existingUrl) {
         return res.status(409).json(
             new ApiResponse(
@@ -31,10 +31,8 @@ export const shortenURL = asyncHandler(async (req, res) => {
     }
 
     const shortUrl = nanoid(8);
-    const url = await Url.create({
-        shortUrl,
-        longUrl,
-    });
+    const url = new Url({ shortUrl, longUrl });
+    await url.save();
 
     return res.status(200).json(
         new ApiResponse(
@@ -59,7 +57,7 @@ export const resolveURL = asyncHandler(async (req, res) => {
         // Asynchronous click count update
         process.nextTick(async () => {
             try {
-                await Url.increment("clicks", { where: { shortUrl } });
+                await Url.updateOne({ shortUrl }, { $inc: { clicks: 1 } });
             } catch (err) {
                 console.error("Failed to update click count:", err.message);
             }
@@ -68,7 +66,7 @@ export const resolveURL = asyncHandler(async (req, res) => {
         return res.redirect(cachedUrl);
     }
     // Cache miss
-    const url = await Url.findOne({ where: { shortUrl } });
+    const url = await Url.findOne({ shortUrl });
     if (!url) {
         throw new ApiError(404, "Shortened URL not found");
     }
@@ -84,7 +82,7 @@ export const resolveURL = asyncHandler(async (req, res) => {
 export const getAnalytics = asyncHandler(async (req, res) => {
     const { shortUrl } = req.params;
 
-    const url = await Url.findOne({ where: { shortUrl } });
+    const url = await Url.findOne({ shortUrl });
 
     if (!url) {
         throw new ApiError(404, "Short URL not found.");

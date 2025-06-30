@@ -18,6 +18,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.1",
     "express-rate-limit": "^7.5.0",
+    "mongoose": "^8.16.1",
     "nanoid": "^5.0.9",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
