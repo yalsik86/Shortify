@@ -22,9 +22,13 @@
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 5px;
-  background: black;
+  background: #000;
   color: white;
   cursor: pointer;
+}
+
+.analytics-button:hover {
+  background: #222;
 }
 
 .analytics-result {
@@ -44,4 +48,8 @@
   color: white;
   cursor: pointer;
   font-size: 0.85rem;
+}
+
+.toggle-button:hover {
+  background: #555;
 }

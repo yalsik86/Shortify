@@ -29,9 +29,18 @@ body {
   color: white;
 }
 
+.card {
+  background: rgba(61, 61, 61, 0.7);
+  padding: 2rem;
+  border-radius: 10px;
+  width: 400px;
+  color: white;
+}
+
+
 .subtitle {
   margin: 0 0 1.5rem 0;
-  font-size: 1.2rem; /* made bigger */
+  font-size: 1.2rem;
   font-weight: 500;
   color: #eee;
   text-align: left;
@@ -42,4 +51,18 @@ body {
   color: red;
   font-size: 0.9rem;
 }
-/* 312F39 */
+
+.toggle-button {
+  margin-top: 1rem;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 5px;
+  background: #444;
+  color: white;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.toggle-button:hover {
+  background: #555;
+}

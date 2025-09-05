@@ -5,18 +5,15 @@ import "./HomePage.css";
 
 const Home = ({ onSwitch }) => {
   const [shortUrl, setShortUrl] = useState(null);
-  const [infoMessage, setInfoMessage] = useState(null);
   const [error, setError] = useState(null);
 
-  const handleShortenSuccess = (url, message) => {
+  const handleShortenSuccess = (url) => {
     setShortUrl(url);
-    setInfoMessage(message);
     setError(null);
   };
 
   const handleShortenError = (errMessage) => {
     setShortUrl(null);
-    setInfoMessage(null);
     setError(errMessage);
   };
 
@@ -31,23 +28,9 @@ const Home = ({ onSwitch }) => {
           onSuccess={handleShortenSuccess}
           onError={handleShortenError}
         />
-        {shortUrl && (
-          <ShortUrlDisplay shortUrl={shortUrl} infoMessage={infoMessage} />
-        )}
+        {shortUrl && <ShortUrlDisplay shortUrl={shortUrl} />}
         {error && <p className="error">{error}</p>}
-        <button
-          onClick={onSwitch}
-          style={{
-            marginTop: "1rem",
-            padding: "0.4rem 0.8rem",
-            border: "none",
-            borderRadius: "5px",
-            background: "#444",
-            color: "white",
-            cursor: "pointer",
-            fontSize: "0.85rem",
-          }}
-        >
+        <button onClick={onSwitch} className="toggle-button">
           Go to Analytics →
         </button>
       </div>

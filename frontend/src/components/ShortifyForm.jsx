@@ -9,11 +9,11 @@ const ShortifyForm = ({ onSuccess, onError }) => {
     e.preventDefault();
     try {
       const response = await shortenURL(longUrl);
-      onSuccess(response.shortUrl, "URL Shortified!");
+      onSuccess(response.shortUrl);
     } catch (err) {
       if (err.response?.status === 409) {
         const existingShortUrl = err.response.data.data.shortUrl;
-        onSuccess(existingShortUrl, "URL Shortified!");
+        onSuccess(existingShortUrl);
       } else {
         onError(err.response?.data?.message || "Something went wrong");
       }
