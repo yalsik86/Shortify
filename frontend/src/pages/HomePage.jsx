@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ShortifyForm from "../components/ShortifyForm";
 import ShortUrlDisplay from "../components/ShortUrlDisplay";
+import "./HomePage.css";
 
 const Home = () => {
   const [shortUrl, setShortUrl] = useState(null);
@@ -20,14 +21,21 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <h1>Shortify</h1>
-      <ShortifyForm
-        onSuccess={handleShortenSuccess}
-        onError={handleShortenError}
-      />
-      {shortUrl && <ShortUrlDisplay shortUrl={shortUrl} infoMessage={infoMessage} />}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    <div className="container">
+      <h1 className="main-title">Shortify</h1>
+      <div className="card">
+        <p className="subtitle">
+          A high-performance and scalable URL Shortening service
+        </p>
+        <ShortifyForm
+          onSuccess={handleShortenSuccess}
+          onError={handleShortenError}
+        />
+        {shortUrl && (
+          <ShortUrlDisplay shortUrl={shortUrl} infoMessage={infoMessage} />
+        )}
+        {error && <p className="error">{error}</p>}
+      </div>
     </div>
   );
 };

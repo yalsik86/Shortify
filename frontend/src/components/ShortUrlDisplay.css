@@ -1,0 +1,26 @@
+.short-url-display {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.short-url-display a {
+  color: #9db5ff;
+  text-decoration: none;
+}
+
+.short-url-display button {
+  margin-top: 0.5rem;
+  background: black;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.copied {
+  display: block;
+  margin-top: 0.5rem;
+  color: lightgreen;
+  font-size: 0.85rem;
+}

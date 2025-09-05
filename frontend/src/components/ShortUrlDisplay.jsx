@@ -1,26 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import "./ShortUrlDisplay.css";
 
 const ShortUrlDisplay = ({ shortUrl, infoMessage }) => {
+  const [copied, setCopied] = useState(false);
+
   const copyToClipboard = () => {
     navigator.clipboard.writeText(shortUrl);
-    alert("Short URL copied to clipboard!");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
   };
 
   return (
-    <div>
-      {infoMessage && (
-        <p style={{ color: "blue" }}>
-          {infoMessage}
-          <br />
-        </p>
-      )}
+    <div className="short-url-display">
+      {infoMessage && <p className="info">{infoMessage}</p>}
       <p>
-        Short URL:{" "}
+        Shortified URL:{" "}
         <a href={shortUrl} target="_blank" rel="noreferrer">
           {shortUrl}
         </a>
       </p>
       <button onClick={copyToClipboard}>Copy</button>
+      {copied && <span className="copied">Copied! ✅</span>}
     </div>
   );
 };

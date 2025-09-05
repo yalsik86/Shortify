@@ -6,7 +6,6 @@ function App() {
 
   return (
     <>
-      <div>Url Shortener Frontend</div>
       <Home></Home>
     </>
   )

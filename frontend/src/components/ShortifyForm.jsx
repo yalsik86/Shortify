@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { shortenURL } from "../services/urlService";
+import "./ShortifyForm.css";
 
 const ShortifyForm = ({ onSuccess, onError }) => {
   const [longUrl, setLongUrl] = useState("");
@@ -20,10 +21,10 @@ const ShortifyForm = ({ onSuccess, onError }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="shortify-form" onSubmit={handleSubmit}>
       <input
         type="url"
-        placeholder="Enter URL to Shortify"
+        placeholder="Enter a URL to shortify"
         value={longUrl}
         onChange={(e) => setLongUrl(e.target.value)}
         required

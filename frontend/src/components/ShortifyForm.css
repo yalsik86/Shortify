@@ -1,0 +1,21 @@
+.shortify-form {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.shortify-form input {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+}
+
+.shortify-form button {
+  background: black;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
