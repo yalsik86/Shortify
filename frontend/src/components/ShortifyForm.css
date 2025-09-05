@@ -9,6 +9,12 @@
   padding: 0.5rem;
   border-radius: 5px;
   border: none;
+  background-color: #222; 
+}
+
+.shortify-form input::placeholder {
+  color: #bbb;
+  font-style: italic;
 }
 
 .shortify-form button {

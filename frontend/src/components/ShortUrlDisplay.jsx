@@ -14,7 +14,6 @@ const ShortUrlDisplay = ({ shortUrl, infoMessage }) => {
     <div className="short-url-display">
       {infoMessage && <p className="info">{infoMessage}</p>}
       <p>
-        Shortified URL:{" "}
         <a href={shortUrl} target="_blank" rel="noreferrer">
           {shortUrl}
         </a>

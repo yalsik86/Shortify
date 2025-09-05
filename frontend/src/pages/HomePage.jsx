@@ -3,7 +3,7 @@ import ShortifyForm from "../components/ShortifyForm";
 import ShortUrlDisplay from "../components/ShortUrlDisplay";
 import "./HomePage.css";
 
-const Home = () => {
+const Home = ({ onSwitch }) => {
   const [shortUrl, setShortUrl] = useState(null);
   const [infoMessage, setInfoMessage] = useState(null);
   const [error, setError] = useState(null);
@@ -35,6 +35,21 @@ const Home = () => {
           <ShortUrlDisplay shortUrl={shortUrl} infoMessage={infoMessage} />
         )}
         {error && <p className="error">{error}</p>}
+        <button
+          onClick={onSwitch}
+          style={{
+            marginTop: "1rem",
+            padding: "0.4rem 0.8rem",
+            border: "none",
+            borderRadius: "5px",
+            background: "#444",
+            color: "white",
+            cursor: "pointer",
+            fontSize: "0.85rem",
+          }}
+        >
+          Go to Analytics →
+        </button>
       </div>
     </div>
   );
